@@ -59,37 +59,6 @@ namespace WebGarage.Controllers
             return View(vehicle);
         }
 
-        // GET: Vehicles/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Vehicle vehicle = db.Vehicles.Find(id);
-            if (vehicle == null)
-            {
-                return HttpNotFound();
-            }
-            return View(vehicle);
-        }
-
-        // POST: Vehicles/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,RegistrationNumber,NumberOfWheels,Model,Color,VehicleType,DateCreated")] Vehicle vehicle)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(vehicle).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(vehicle);
-        }
-
         // GET: Vehicles/Delete/5
         public ActionResult Delete(int? id)
         {
