@@ -8,7 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebGarage.DAL;
 using WebGarage.Models;
-
+using PagedList;
+    
 namespace WebGarage.Controllers
 {
     public class VehiclesController : Controller
@@ -16,9 +17,51 @@ namespace WebGarage.Controllers
         private GarageContext db = new GarageContext();
 
         // GET: Vehicles
-        public ActionResult Index()
+
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(db.Vehicles.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.RegnrSortParm = String.IsNullOrEmpty(sortOrder) ? "regnr_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var vehicles = from v in db.Vehicles
+                           select v;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                vehicles = vehicles.Where(v => v.RegistrationNumber.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "regnr_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.RegistrationNumber);
+                    break;
+                case "Date":
+                    vehicles = vehicles.OrderBy(v => v.DateCreated);
+                    break;
+                case "date_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.DateCreated);
+                    break;
+                default:
+                    vehicles = vehicles.OrderBy(v => v.RegistrationNumber);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(vehicles.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Vehicles/Details/5

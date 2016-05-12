@@ -1,33 +1,46 @@
-﻿@model IEnumerable<WebGarage.Models.Vehicle>
+﻿@model PagedList.IPagedList<WebGarage.Models.Vehicle>
+
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Vehicles";
 }
 
-<h2>Index</h2>
+<h2>Vehicles</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm("Index", "Vehicles", FormMethod.Get))
+{
+    <p>
+        Find by registration number: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.RegistrationNumber)
+            @Html.ActionLink("RegistrationNumber", "Index", new { sortOrder = ViewBag.RegnrSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NumberOfWheels)
+            NumberOfWheels
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Model)
+            Model
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Color)
+            Color
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VehicleType)
+            VehicleType
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
+            @Html.ActionLink("DateCreated", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -61,3 +74,9 @@
 }
 
 </table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
