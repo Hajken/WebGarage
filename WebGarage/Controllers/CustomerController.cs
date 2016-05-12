@@ -41,10 +41,28 @@ namespace WebGarage.Controllers
             return View(vehicle);
         }
 
-        public ActionResult CheckoutVehicle()
+        public ActionResult CheckoutVehicle(string searchTerm = null)
         {
+            
+
+            if (Request.IsAjaxRequest())
+            {
+
+                    var vehicle = (from u in db.Vehicles
+                                   where u.RegistrationNumber == searchTerm
+                                   select u).FirstOrDefault();
+                if (vehicle==null)
+                {
+                    ViewBag.Message = "Didnt find your vehicle!";
+                }
+                    return PartialView("_SearchResult", vehicle);
+
+            }
+
             return View();
         }
+
+
 
         [HttpPost, ActionName("CheckoutVehicle")]
         [ValidateAntiForgeryToken]
