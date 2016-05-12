@@ -17,7 +17,7 @@ namespace WebGarage.Models
 
         public string Model { get; set; }
 
-        public string Color { get; set; }
+        public Colors Color { get; set; }
 
         public VehicleTypes VehicleType { get; set; }
 
@@ -38,6 +38,17 @@ namespace WebGarage.Models
         Boat,
         AirPlane,
         Bicycle,
-        Motorcycle
+        Motorcycle,
+        Other
     }
+    public enum Colors
+    {
+        Yellow,
+        Black,
+        White,
+        Red,
+        Green,
+        Other
+    }
+    
 }
