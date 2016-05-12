@@ -11,7 +11,7 @@ namespace WebGarage.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(DAL.GarageContext context)
@@ -41,15 +41,6 @@ namespace WebGarage.Migrations
                 "Opel",
             };
 
-            var colors = new string[]
-             {
-                "Black",
-                "White",
-                "Blue",
-                "Green",
-                "Red",
-                "Purple",
-             };
 
             var rnd = new Random(new System.DateTime().Millisecond);
 
@@ -58,11 +49,11 @@ namespace WebGarage.Migrations
                 for (int j = 0; j < 10; j++)
                 {
                     var regNumberRandom = RandomString(rnd, 6);
-                    var numberOfWheels = rnd.Next(1, 4);
+                    var numberOfWheels = rnd.Next(1,5);
 
                     var modelRandom = models[rnd.Next(0, models.Length)];
 
-                    var colorRandom = colors[rnd.Next(0, colors.Length)];
+                    var colorRandom = (Colors)rnd.Next(0,5);
                     var vehicleTypesRandom = (VehicleTypes)rnd.Next(0, 5);
 
                     var vehicle = new Vehicle
