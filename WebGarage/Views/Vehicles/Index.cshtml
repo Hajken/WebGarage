@@ -15,3 +15,25 @@
 <div id="search-results">
     @Html.Action("SearchInitial", "Vehicles")
 </div>
+
+<script>
+        $(function () {
+            var loadResults = function (url) {
+                $('#search-results').load(url, replaceHref);
+            };
+
+            var replaceHref = function () {
+                $('.partialLoad a').each(function () {
+                    var $this = $(this);
+                    var href = $this.attr('href');
+
+                    $this.prop('href', "#");
+                    $(this).click(function () {
+                        loadResults(href);
+                    });
+                })
+            };
+
+            replaceHref();
+        });
+</script>

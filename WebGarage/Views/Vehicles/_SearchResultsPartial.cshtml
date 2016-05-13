@@ -13,8 +13,8 @@
 
     <table class="table">
         <tr>
-            <th>
-                <a href="#" onclick="loadResults('/vehicles/searchget?sortOrder=@ViewBag.RegnrSortParm&currentFilter=@ViewBag.CurrentFilter')">RegistrationNumber</a>
+            <th class="partialLoad">
+                @Html.ActionLink("RegistrationNumber", "SearchGet", new { sortOrder = ViewBag.RegnrSortParm, currentFilter = ViewBag.CurrentFilter }) 
             </th>
             <th>
                 NumberOfWheels
@@ -28,8 +28,8 @@
             <th>
                 VehicleType
             </th>
-            <th>
-                <a href="#" onclick="loadResults('/vehicles/searchget?sortOrder=@ViewBag.DateSortParm&currentFilter=@ViewBag.CurrentFilter')">DateCreated</a>
+            <th class="partialLoad">
+                @Html.ActionLink("DateCreated", "SearchGet", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
             </th>
             <th></th>
         </tr>
