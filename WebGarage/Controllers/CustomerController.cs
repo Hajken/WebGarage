@@ -57,7 +57,7 @@ namespace WebGarage.Controllers
                 {
                     ViewBag.Message = "Didnt find your vehicle!";
                 }
-                    return PartialView("_Result", vehicle);
+                    return PartialView("_CheckoutResult", vehicle);
 
             }
 
@@ -81,10 +81,10 @@ namespace WebGarage.Controllers
                 ViewBag.Confirmed = "Checkedout Vehicle with Registration number: " + vehicle.RegistrationNumber;
                 db.Vehicles.Remove(vehicle);
                 db.SaveChanges();
-                return PartialView("_Result", null);
+                return PartialView("_CheckoutResult", null);
             }
             ViewBag.fail = "Did not find your vehicle";
-            return PartialView("_Result", null);
+            return PartialView("_CheckoutResult", null);
 
         }
 
