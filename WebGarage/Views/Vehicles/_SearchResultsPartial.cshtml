@@ -3,21 +3,18 @@
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "_SearchResultsPartial";
+    ViewBag.Title = "SearchResult";
 }
 
 @try
 {
-
-<h2>_SearchResultsPartial</h2>
-
     <table class="table">
         <tr>
             <th class="partialLoad">
                 @Html.ActionLink("RegistrationNumber", "SearchGet", new { sortOrder = ViewBag.RegnrSortParm, currentFilter = ViewBag.CurrentFilter }) 
             </th>
             <th>
-                NumberOfWheels
+                Number Of Wheels
             </th>
             <th>
                 Model
@@ -26,7 +23,7 @@
                 Color
             </th>
             <th>
-                VehicleType
+                Vehicle Type
             </th>
             <th class="partialLoad">
                 @Html.ActionLink("DateCreated", "SearchGet", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })

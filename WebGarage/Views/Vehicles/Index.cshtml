@@ -2,15 +2,10 @@
     ViewBag.Title = "Vehicles";
 }
 
-<h2>Vehicles</h2>
-
-<p>
-    @Html.ActionLink("Park Vehicle", "Create")
-</p>
-
 <div id="search-form">
     @Html.Action("SearchForm", "Vehicles")
 </div>
+
 
 <div id="search-results">
     @Html.Action("SearchInitial", "Vehicles")
