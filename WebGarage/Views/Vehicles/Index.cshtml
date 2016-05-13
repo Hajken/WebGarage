@@ -17,23 +17,23 @@
 </div>
 
 <script>
-        $(function () {
-            var loadResults = function (url) {
-                $('#search-results').load(url, replaceHref);
-            };
+    var loadResults = function (url) {
+        $('#search-results').load(url, replaceHref);
+    };
 
-            var replaceHref = function () {
-                $('.partialLoad a').each(function () {
-                    var $this = $(this);
-                    var href = $this.attr('href');
+    var replaceHref = function () {
+        $('.partialLoad a').each(function () {
+            var $this = $(this);
+            var href = $this.attr('href');
 
-                    $this.prop('href', "#");
-                    $(this).click(function () {
-                        loadResults(href);
-                    });
-                })
-            };
+            $this.prop('href', "#");
+            $(this).click(function () {
+                loadResults(href);
+            });
+        })
+    };
 
-            replaceHref();
-        });
+    $(function () {
+        replaceHref();
+    });
 </script>
