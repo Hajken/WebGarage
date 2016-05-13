@@ -68,8 +68,8 @@
     <text>Page</text> @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) <text>of</text> @Model.PageCount
 
     @Html.PagedListPager(Model, page =>
-        Url.Action("Index",
-        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        Url.Action("SearchGet",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions { LiElementClasses = new[] { "partialLoad" } })
 
 }
 catch
