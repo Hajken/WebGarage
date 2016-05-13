@@ -28,6 +28,13 @@ namespace WebGarage.Controllers
             return PartialView("_SearchFormPartial");
         }
 
+
+        [HttpGet]
+        public ActionResult SearchInitial()
+        {
+            return Search(null, null, null, null);
+        }
+
         [HttpPost]
         public ActionResult Search(string sortOrder, string currentFilter, string searchString, int? page)
         {
