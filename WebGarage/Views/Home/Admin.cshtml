@@ -1,0 +1,18 @@
+﻿@model WebGarage.Models.Vehicle
+
+@{
+    ViewBag.Title = "Admin";
+}
+
+<h2>Admin</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Garage</h2>
+        <p>
+            List all vehicles, and find, edit, and remove vehicles.
+        </p>
+        <p>@Html.ActionLink("Garage", "Index", "Vehicles", new object { }, new { @class = "btn btn-default" })</p>
+    </div>
+</div>
+
