@@ -17,8 +17,19 @@ namespace WebGarage.Controllers
         private GarageContext db = new GarageContext();
 
         // GET: Vehicles
+        public ActionResult Index()
+        {
+            return View();
+        }
 
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        [HttpGet]
+        public ActionResult Search()
+        {
+            return PartialView("_SearchFormPartial");
+        }
+
+        [HttpPost]
+        public ActionResult Search(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.RegnrSortParm = String.IsNullOrEmpty(sortOrder) ? "regnr_desc" : "";
@@ -61,7 +72,10 @@ namespace WebGarage.Controllers
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            return View(vehicles.ToPagedList(pageNumber, pageSize));
+
+            var model = vehicles.ToPagedList(pageNumber, pageSize);
+
+            return PartialView("_SearchResultsPartial", model);
         }
 
         // GET: Vehicles/Details/5

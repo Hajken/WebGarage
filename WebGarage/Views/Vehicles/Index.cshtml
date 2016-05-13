@@ -1,10 +1,4 @@
-﻿@model PagedList.IPagedList<WebGarage.Models.Vehicle>
-
-@using PagedList.Mvc;
-
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
-@{
+﻿@{
     ViewBag.Title = "Vehicles";
 }
 
@@ -14,69 +8,10 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm("Index", "Vehicles", FormMethod.Get))
-{
-    <p>
-        Find by registration number: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
-    </p>
-}
+<div id="search-form">
+    @Html.Action("Search", "Vehicles")
+</div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink("RegistrationNumber", "Index", new { sortOrder = ViewBag.RegnrSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            NumberOfWheels
-        </th>
-        <th>
-            Model
-        </th>
-        <th>
-            Color
-        </th>
-        <th>
-            VehicleType
-        </th>
-        <th>
-            @Html.ActionLink("DateCreated", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RegistrationNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberOfWheels)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Model)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Color)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VehicleType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
-
-<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+<div id="search-results">
+    @Html.Partial("_SearchResultsPartial")
+</div>
