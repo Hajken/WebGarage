@@ -83,7 +83,7 @@ namespace WebGarage.Controllers
                 db.SaveChanges();
                 return PartialView("_CheckoutResult", null);
             }
-            ViewBag.fail = "Did not find your vehicle";
+            ViewBag.Fail = "Did not find your vehicle";
             return PartialView("_CheckoutResult", null);
 
         }
