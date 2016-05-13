@@ -9,17 +9,17 @@
                             {
                                 HttpMethod = "get",
                                 InsertionMode = InsertionMode.Replace,
-                                UpdateTargetId = "searchResult"
+                                UpdateTargetId = "result"
                             }))
 {
     <input type="search" name="searchTerm" />
     <input type="submit" value="Search by Name" />
 }
-<div id="searchResult">
+<div id="result">
    
 </div>
-@Html.Partial("_SearchResult", Model)
+@Html.Partial("_Result", Model)
 
 @section Scripts {
-    @Scripts.Render("~/bundles/ajax")
+
 }

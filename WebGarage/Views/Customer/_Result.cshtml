@@ -3,7 +3,6 @@
     @if (Model!=null)
     {
     <dl class="dl-horizontal">
-        @Html.AntiForgeryToken()
         <dt>
             @Html.DisplayNameFor(model => model.RegistrationNumber)
         </dt>
@@ -51,15 +50,30 @@
         <dd>
             @Html.DisplayFor(model => model.DateCreated)
         </dd>
-        @*<dt>
-            @Html.ActionLink("Checkout Vehicle", "CheckoutVehicle", new { id = Model.ID })
-        </dt>*@
-        
+
+        <dt>
+            @*@Html.ActionLink("Checkout Vehicle", "CheckoutVehicle", new { id = Model.ID })*@
+        </dt>
+       
 
     </dl>
+        using (Ajax.BeginForm("CheckoutVehicleConfirmed",
+                                            new AjaxOptions
+                                            {
+                                                HttpMethod = "Post",
+                                                InsertionMode = InsertionMode.Replace,
+                                                UpdateTargetId = "result"
+                                            }))
+        {
+            @Html.Hidden("id", Model.ID)
+        <input type="submit" value="ConfirmCheckout" class="btn btn-default" />
+        @Html.ActionLink("Back to Index", "Index")
+    }
     }
     else
     {
         <p>@ViewBag.Message</p>
+        <p>@ViewBag.Confirmed</p>
+        <p>@ViewBag.fail</p>
     }
 

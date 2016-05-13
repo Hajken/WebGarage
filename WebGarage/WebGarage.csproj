@@ -186,7 +186,7 @@
     <Content Include="Views\Customer\ParkVehicle.cshtml" />
     <Content Include="Views\Customer\CheckoutVehicle.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
-    <Content Include="Views\Customer\_SearchResult.cshtml" />
+    <Content Include="Views\Customer\_Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebGarage.DAL;
@@ -41,6 +42,7 @@ namespace WebGarage.Controllers
             return View(vehicle);
         }
 
+
         public ActionResult CheckoutVehicle(string searchTerm = null)
         {
             
@@ -55,24 +57,36 @@ namespace WebGarage.Controllers
                 {
                     ViewBag.Message = "Didnt find your vehicle!";
                 }
-                    return PartialView("_SearchResult", vehicle);
+                    return PartialView("_Result", vehicle);
 
             }
 
             return View();
         }
 
-
-
-        [HttpPost, ActionName("CheckoutVehicle")]
-        [ValidateAntiForgeryToken]
-        public ActionResult CheckoutVehicleConfirmed(int id)
+        public ActionResult CheckoutVehicleConfirmed(int? id)
         {
-            Vehicle vehicle = db.Vehicles.Find(id);
-            db.Vehicles.Remove(vehicle);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (Request.IsAjaxRequest())
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Vehicle vehicle = db.Vehicles.Find(id);
+
+                if (vehicle == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.Confirmed = "Checkedout Vehicle with Registration number: " + vehicle.RegistrationNumber;
+                db.Vehicles.Remove(vehicle);
+                db.SaveChanges();
+                return PartialView("_Result", null);
+            }
+            ViewBag.fail = "Did not find your vehicle";
+            return PartialView("_Result", null);
+
         }
-    
+
     }
 }
