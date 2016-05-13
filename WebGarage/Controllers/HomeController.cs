@@ -15,14 +15,14 @@ namespace WebGarage.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "About us";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Admin()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Administration";
 
             return View();
         }
