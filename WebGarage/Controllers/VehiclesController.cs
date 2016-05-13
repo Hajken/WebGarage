@@ -23,7 +23,7 @@ namespace WebGarage.Controllers
         }
 
         [HttpGet]
-        public ActionResult Search()
+        public ActionResult SearchForm()
         {
             return PartialView("_SearchFormPartial");
         }
@@ -32,11 +32,62 @@ namespace WebGarage.Controllers
         [HttpGet]
         public ActionResult SearchInitial()
         {
-            return Search(null, null, null, null);
+            return SearchGet(null, null, null, null);
         }
 
+        [HttpGet]
+        public ActionResult SearchGet(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.RegnrSortParm = String.IsNullOrEmpty(sortOrder) ? "regnr_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var vehicles = from v in db.Vehicles
+                           select v;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                vehicles = vehicles.Where(v => v.RegistrationNumber.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "regnr_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.RegistrationNumber);
+                    break;
+                case "Date":
+                    vehicles = vehicles.OrderBy(v => v.DateCreated);
+                    break;
+                case "date_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.DateCreated);
+                    break;
+                default:
+                    vehicles = vehicles.OrderBy(v => v.RegistrationNumber);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+            var model = vehicles.ToPagedList(pageNumber, pageSize);
+
+            return PartialView("_SearchResultsPartial", model);
+        }
+
+
         [HttpPost]
-        public ActionResult Search(string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult SearchPost(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.RegnrSortParm = String.IsNullOrEmpty(sortOrder) ? "regnr_desc" : "";

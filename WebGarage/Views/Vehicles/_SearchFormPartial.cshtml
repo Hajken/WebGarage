@@ -4,14 +4,22 @@
 
 <h2>_SearchFormPartial</h2>
 
-@using (Ajax.BeginForm("Search", "Vehicles", FormMethod.Post,
-                    new AjaxOptions
-                    {
-                        InsertionMode = InsertionMode.Replace,
-                        HttpMethod = "POST",
-                        UpdateTargetId = "search-results"
-                    }))
+@using (Ajax.BeginForm("SearchPost", "Vehicles", FormMethod.Post,
+                                new AjaxOptions
+                                {
+                                    InsertionMode = InsertionMode.Replace,
+                                    HttpMethod = "POST",
+                                    UpdateTargetId = "search-results"
+                                }))
+
 {
+    <script>
+        function loadResults(url)
+        {
+            $('#search-results').load(url);
+        }
+    </script>
+
     <div>
         Find by registration number: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
 

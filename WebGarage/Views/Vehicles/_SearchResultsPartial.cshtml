@@ -14,7 +14,7 @@
     <table class="table">
         <tr>
             <th>
-                @Html.ActionLink("RegistrationNumber", "Index", new { sortOrder = ViewBag.RegnrSortParm, currentFilter = ViewBag.CurrentFilter })
+                <a href="#" onclick="loadResults('/vehicles/searchget?sortOrder=@ViewBag.RegnrSortParm&currentFilter=@ViewBag.CurrentFilter')">RegistrationNumber</a>
             </th>
             <th>
                 NumberOfWheels
@@ -29,7 +29,7 @@
                 VehicleType
             </th>
             <th>
-                @Html.ActionLink("DateCreated", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+                <a href="#" onclick="loadResults('/vehicles/searchget?sortOrder=@ViewBag.DateSortParm&currentFilter=@ViewBag.CurrentFilter')">DateCreated</a>
             </th>
             <th></th>
         </tr>
