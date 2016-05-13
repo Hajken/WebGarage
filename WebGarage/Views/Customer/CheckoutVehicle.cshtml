@@ -1,0 +1,25 @@
+﻿@model WebGarage.Models.Vehicle
+
+@{
+    ViewBag.Title = "CheckoutVehicle";
+}
+<h4>Search For Your Vehicle</h4>
+@using (Ajax.BeginForm("CheckoutVehicle",
+                            new AjaxOptions
+                            {
+                                HttpMethod = "get",
+                                InsertionMode = InsertionMode.Replace,
+                                UpdateTargetId = "result"
+                            }))
+{
+    <input type="search" name="searchTerm" />
+    <input type="submit" value="Search by Name" />
+}
+<div id="result">
+   
+</div>
+@Html.Partial("_CheckoutResult", Model)
+
+@section Scripts {
+
+}

@@ -1,0 +1,79 @@
+﻿@model WebGarage.Models.Vehicle
+
+    @if (Model!=null)
+    {
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RegistrationNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegistrationNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfWheels)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfWheels)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VehicleType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VehicleType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @*@Html.ActionLink("Checkout Vehicle", "CheckoutVehicle", new { id = Model.ID })*@
+        </dt>
+       
+
+    </dl>
+        using (Ajax.BeginForm("CheckoutVehicleConfirmed",
+                                            new AjaxOptions
+                                            {
+                                                HttpMethod = "Post",
+                                                InsertionMode = InsertionMode.Replace,
+                                                UpdateTargetId = "result"
+                                            }))
+        {
+            @Html.Hidden("id", Model.ID)
+        <input type="submit" value="ConfirmCheckout" class="btn btn-default" />
+        @Html.ActionLink("Back to Index", "Index")
+    }
+    }
+    else
+    {
+        <p>@ViewBag.Message</p>
+        <p>@ViewBag.Confirmed</p>
+        <p>@ViewBag.Fail</p>
+    }
+
