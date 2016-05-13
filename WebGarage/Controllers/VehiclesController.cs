@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebGarage.DAL;
 using WebGarage.Models;
+using WebGarage.Classes;
 using PagedList;
     
 namespace WebGarage.Controllers
@@ -198,6 +199,47 @@ namespace WebGarage.Controllers
             db.Vehicles.Remove(vehicle);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Vehicles/Stats
+        public ActionResult Stats()
+        {
+            var stats = new Stats();
+            var vehicles = db.Vehicles.ToList();
+
+            foreach (var v in vehicles)
+            {
+                switch (v.VehicleType)
+                {
+                    case VehicleTypes.Car:
+                        stats.Car++;
+                        break;
+                    case VehicleTypes.Truck:
+                        stats.Truck++;
+                        break;
+                    case VehicleTypes.Boat:
+                        stats.Boat++;
+                        break;
+                    case VehicleTypes.AirPlane:
+                        stats.AirPlane++;
+                        break;
+                    case VehicleTypes.Bicycle:
+                        stats.Bicycle++;
+                        break;
+                    case VehicleTypes.Motorcycle:
+                        stats.Motorcycle++;
+                        break;
+                    case VehicleTypes.Other:
+                        stats.Other++;
+                        break;
+                    default:
+                        break;
+                }
+
+                stats.Total++;
+            }
+
+            return View(stats);
         }
 
         protected override void Dispose(bool disposing)

@@ -1,0 +1,81 @@
+﻿@model WebGarage.Classes.Stats
+
+@{
+    ViewBag.Title = "Stats";
+}
+
+<h2>Stats</h2>
+
+<div>
+    <h4>Stats</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Cars: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Car)
+        </dd>
+
+        <dt>
+            Trucks:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Truck)
+        </dd>
+
+        <dt>
+            Boats:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Boat)
+        </dd>
+
+        <dt>
+            Airplanes:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AirPlane)
+        </dd>
+
+        <dt>
+            Bicycles:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bicycle)
+        </dd>
+
+        <dt>
+            Motorcycles:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Motorcycle)
+        </dd>
+
+        <dt>
+            Others:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Other)
+        </dd>
+
+        <dt>
+            Total:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to Admin", "Index")
+</p>

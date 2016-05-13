@@ -148,6 +148,7 @@
       <DependentUpon>201605120922323_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Classes\Stats.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -200,6 +201,7 @@
     <Content Include="Views\Vehicles\_SearchFormPartial.cshtml" />
     <Content Include="Views\Vehicles\_SearchResultsPartial.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
+    <Content Include="Views\Vehicles\Stats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

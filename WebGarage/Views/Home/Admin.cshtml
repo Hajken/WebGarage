@@ -7,12 +7,20 @@
 <h2>Admin</h2>
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
         <h2>Garage</h2>
         <p>
             List all vehicles, and find, edit, and remove vehicles.
         </p>
         <p>@Html.ActionLink("Garage", "Index", "Vehicles", new object { }, new { @class = "btn btn-default" })</p>
+    </div>
+
+    <div class="col-md-4">
+        <h2>Stats</h2>
+        <p>
+            Statistics about current vehicles.
+        </p>
+        <p>@Html.ActionLink("Stats", "Stats", "Vehicles", new object { }, new { @class = "btn btn-default" })</p>
     </div>
 </div>
 
