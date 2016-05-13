@@ -13,7 +13,7 @@ namespace WebGarage.Controllers
 {
     public class CustomerController : Controller
     {
-
+        const int pricePerMinut = 1;
         private GarageContext db = new GarageContext();
 
         public ActionResult Index()
@@ -47,19 +47,19 @@ namespace WebGarage.Controllers
 
         public ActionResult CheckoutVehicle(string searchTerm = null)
         {
-            
+
 
             if (Request.IsAjaxRequest())
             {
 
-                    var vehicle = (from u in db.Vehicles
-                                   where u.RegistrationNumber == searchTerm
-                                   select u).FirstOrDefault();
-                if (vehicle==null)
+                var vehicle = (from u in db.Vehicles
+                               where u.RegistrationNumber == searchTerm
+                               select u).FirstOrDefault();
+                if (vehicle == null)
                 {
                     ViewBag.Message = "Didnt find your vehicle!";
                 }
-                    return PartialView("_CheckoutResult", vehicle);
+                return PartialView("_CheckoutResult", vehicle);
 
             }
 
@@ -75,7 +75,7 @@ namespace WebGarage.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 Vehicle vehicle = db.Vehicles.Find(id);
-
+                GetReceipt(vehicle);
                 if (vehicle == null)
                 {
                     return HttpNotFound();
@@ -111,12 +111,37 @@ namespace WebGarage.Controllers
                     }
                 } while (saveFailed);
 
-
-
-                return PartialView("_CheckoutResult", null);
+                return PartialView("_Receipt", null);
             }
             ViewBag.Fail = "Did not find your vehicle";
             return PartialView("_CheckoutResult", null);
+
+        }
+
+        public void GetReceipt(Vehicle vehicle)
+        {
+            int timeInMinuts = 0;
+            int totalPrice = 0;
+
+            DateTime StartTime = vehicle.DateCreated;
+            DateTime EndTime = DateTime.Now;
+            TimeSpan ts = EndTime - StartTime;
+
+
+            timeInMinuts = (int)ts.TotalMinutes;
+            totalPrice = timeInMinuts * pricePerMinut; //pricePerMinut is Const int and is price per minut
+
+
+            ViewBag.TotalPrice = totalPrice.ToString();
+            ViewBag.TotalTime = timeInMinuts.ToString();
+            ViewBag.RegistrationNumber = vehicle.RegistrationNumber;
+            ViewBag.VehicleId = vehicle.ID.ToString();
+            ViewBag.VehicleModel = vehicle.Model;
+            ViewBag.VehicleType = vehicle.VehicleType;
+            ViewBag.ParkingTime = vehicle.DateCreated.ToString();
+            ViewBag.ParkingEnd = EndTime.ToString();
+            ViewBag.DateNow = DateTime.Now.ToString();
+            ViewBag.PricePerMinut = pricePerMinut.ToString();
 
         }
 

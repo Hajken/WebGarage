@@ -199,6 +199,7 @@
     <Content Include="Views\Customer\_CheckoutResult.cshtml" />
     <Content Include="Views\Vehicles\_SearchFormPartial.cshtml" />
     <Content Include="Views\Vehicles\_SearchResultsPartial.cshtml" />
+    <Content Include="Views\Customer\_Receipt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
