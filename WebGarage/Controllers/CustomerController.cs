@@ -72,15 +72,18 @@ namespace WebGarage.Controllers
             {
                 if (id == null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    ViewBag.Fail = "Did not find your vehicle";
+                    return PartialView("_CheckoutResult", null);
                 }
                 Vehicle vehicle = db.Vehicles.Find(id);
-                GetReceipt(vehicle);
+                
                 if (vehicle == null)
                 {
-                    return HttpNotFound();
+                    ViewBag.Fail = "Did not find your vehicle";
+                    return PartialView("_CheckoutResult", null);
+
                 }
-                ViewBag.Confirmed = "Checkedout Vehicle with Registration number: " + vehicle.RegistrationNumber;
+                GetReceipt(vehicle);
 
                 db.Entry(vehicle).State = EntityState.Deleted;
 
