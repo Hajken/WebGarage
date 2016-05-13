@@ -2,7 +2,7 @@
     ViewBag.Title = "_SearchFormPartial";
 }
 
-<h2>_SearchFormPartial</h2>
+<h2>Search Vehicle</h2>
 
 @using (Ajax.BeginForm("Search", "Vehicles", FormMethod.Post,
                     new AjaxOptions
@@ -12,7 +12,7 @@
                         UpdateTargetId = "search-results"
                     }))
 {
-    <div>
+    <div class="searchbox">
         Find by registration number: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
 
         <input type="submit" value="Search" />

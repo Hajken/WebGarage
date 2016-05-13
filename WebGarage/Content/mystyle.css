@@ -1,0 +1,36 @@
+﻿.navbar {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+
+    background: red; /* For browsers that do not support gradients */    
+    background: -webkit-radial-gradient(blue, black, green); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(blue, black, green); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(blue, black, green); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(blue, black, green); /* Standard syntax (must be last) */
+
+    /* the rest of your styling */
+}
+#navbartextshadow{
+        color: white;
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+#shadow {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left:5%;
+    margin-top:2%;
+    /* the rest of your styling */
+}
+.row {
+  display: flex; /* equal height of the children */
+}
+.col {
+  flex: 1; /* additionally, equal width */
+  
+  padding: 1em;
+  border: solid;
+}
+.searchbox{
+    padding-bottom:1%;
+}
