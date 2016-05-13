@@ -200,6 +200,7 @@
     <Content Include="Views\Customer\_CheckoutResult.cshtml" />
     <Content Include="Views\Vehicles\_SearchFormPartial.cshtml" />
     <Content Include="Views\Vehicles\_SearchResultsPartial.cshtml" />
+    <Content Include="Views\Customer\_Receipt.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Vehicles\Stats.cshtml" />
   </ItemGroup>
