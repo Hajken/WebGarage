@@ -73,7 +73,7 @@ namespace WebGarage.Controllers
                                select u).FirstOrDefault();
                 if (vehicle == null)
                 {
-                    ViewBag.Message = "Didnt find your vehicle!";
+                    ViewBag.Message = "Did not find your vehicle!";
                 }
                 return PartialView("_CheckoutResult", vehicle);
 
