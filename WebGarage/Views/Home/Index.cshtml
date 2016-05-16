@@ -1,16 +1,56 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+
+    var lotNumber = 1;
+    var numTakenLotsLeft = ViewBag.TotalParkingSpaces - ViewBag.FreeParkingSlots;
+    var numLotsLeft = ViewBag.TotalParkingSpaces;
 }
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-6">
         <h2>Park Vehicle</h2>
         <p>Parking is the act of stopping and disengaging a vehicle and leaving it unoccupied. Total Free Parking slots: @ViewBag.FreeParkingSlots</p>
         <p>@Html.ActionLink("Park your vehicle", "ParkVehicle", "Customer", new object { }, new { @class = "btn btn-default" })</p>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-6">
         <h2>Check out Vehicle</h2>
         <p>When it is time to pick up your vehicle, please have the registration number ready.</p>
         <p>@Html.ActionLink("Check out your vehicle", "CheckoutVehicle", "Customer", new object { }, new { @class = "btn btn-default" })</p>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-md-4 col-md-push-4">
+        <h2>Free Parking Places</h2>
+        <p>
+            <table class="table">
+                <tbody>
+                    @for (var i = 0; i < 20; i++)
+                    {
+                        <tr>
+
+                        @for (var j = 1; j < 20 && numLotsLeft > 0; j++, numTakenLotsLeft--, numLotsLeft--)
+                        {
+                            if (numTakenLotsLeft > 0)
+                            {
+                                <td class="danger">
+                                Lot<br/> #@lotNumber
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="success">
+                                Lot<br /> #@lotNumber
+                                </td>
+                            }
+
+                            lotNumber++;
+                        }
+
+                        </tr>
+                    }
+                    </tbody>
+                    </table>
+                    </p>
+                </div>
+            </div>

@@ -15,7 +15,10 @@ namespace WebGarage.Controllers
         public ActionResult Index()
         {
             db.Vehicles.ToList();
-            ViewBag.FreeParkingSlots = customercontroller.FreeParkingSpaces().ToString();
+
+            ViewBag.FreeParkingSlots = customercontroller.FreeParkingSpaces();
+            ViewBag.TotalParkingSpaces = customercontroller.TotalParkingSpaces();
+
             return View();
         }
 

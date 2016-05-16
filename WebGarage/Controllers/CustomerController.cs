@@ -13,8 +13,8 @@ namespace WebGarage.Controllers
 {
     public class CustomerController : Controller
     {
-        const int pricePerMinut = 1;
-        const int totalParkingSpaces = 200;
+        public const int pricePerMinut = 1;
+        public const int totalParkingSpaces = 200;
         private GarageContext db = new GarageContext();
 
         public ActionResult Index()
@@ -50,7 +50,7 @@ namespace WebGarage.Controllers
                 {
                     db.Vehicles.Add(vehicle);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             else
@@ -162,6 +162,11 @@ namespace WebGarage.Controllers
             ViewBag.DateNow = DateTime.Now.ToString();
             ViewBag.PricePerMinut = pricePerMinut.ToString();
 
+        }
+
+        public int TotalParkingSpaces()
+        {
+            return totalParkingSpaces;
         }
 
         public int FreeParkingSpaces()
