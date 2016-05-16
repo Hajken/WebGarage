@@ -16,7 +16,7 @@ namespace WebGarage.Controllers
     public class VehiclesController : Controller
     {
         private GarageContext db = new GarageContext();
-
+        const int pricePerMinut = 1;
         // GET: Vehicles
         public ActionResult Index()
         {
@@ -204,7 +204,10 @@ namespace WebGarage.Controllers
         // GET: Vehicles/Stats
         public ActionResult Stats()
         {
+            DateTime EndTime = DateTime.Now;
+
             var stats = new Stats();
+
             var vehicles = db.Vehicles.ToList();
 
             foreach (var v in vehicles)
@@ -236,9 +239,17 @@ namespace WebGarage.Controllers
                         break;
                 }
 
+                DateTime StartTime = v.DateCreated;
+                
+                TimeSpan ts = EndTime - StartTime;
+
+
+                stats.TotalTimeInMinutes += (int)ts.TotalMinutes;
+                stats.TotalNumberOfWheels += v.NumberOfWheels;
+
                 stats.Total++;
             }
-
+            stats.TotalPrice = stats.TotalTimeInMinutes * pricePerMinut;
             return View(stats);
         }
 

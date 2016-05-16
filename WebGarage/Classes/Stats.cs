@@ -15,6 +15,10 @@ namespace WebGarage.Classes
         public int Motorcycle { get; set; }
         public int Other { get; set; }
 
+        public int TotalNumberOfWheels { get; set; }
+        public int TotalTimeInMinutes { get; set; }
+        public int TotalPrice { get; set; }
+
         public int Total { get; set; }
     }
 }
