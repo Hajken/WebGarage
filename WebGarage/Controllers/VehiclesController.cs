@@ -152,29 +152,6 @@ namespace WebGarage.Controllers
             return View(vehicle);
         }
 
-        // GET: Vehicles/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Vehicles/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,RegistrationNumber,NumberOfWheels,Model,Color,VehicleType,DateCreated")] Vehicle vehicle)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Vehicles.Add(vehicle);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(vehicle);
-        }
-
         // GET: Vehicles/Delete/5
         public ActionResult Delete(int? id)
         {

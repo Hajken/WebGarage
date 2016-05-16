@@ -14,6 +14,7 @@ namespace WebGarage.Controllers
     public class CustomerController : Controller
     {
         const int pricePerMinut = 1;
+        const int totalParkingSpaces = 200;
         private GarageContext db = new GarageContext();
 
         public ActionResult Index()
@@ -24,6 +25,11 @@ namespace WebGarage.Controllers
         // GET: Park Vehicle
         public ActionResult ParkVehicle()
         {
+            if (db.Vehicles.ToList().Count() <= totalParkingSpaces)
+            {
+                ViewBag.GarageFull = "The Garage Is FULL";
+            }
+                
             return View();
         }
 
@@ -34,13 +40,21 @@ namespace WebGarage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ParkVehicle([Bind(Include = "ID,RegistrationNumber,NumberOfWheels,Model,Color,VehicleType,DateCreated")] Vehicle vehicle)
         {
+            if (db.Vehicles.ToList().Count()<= totalParkingSpaces)
+            {
+
+            
             if (ModelState.IsValid)
             {
                 db.Vehicles.Add(vehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+}
+            else
+            {
+                ViewBag.GarageFull = "The Garage Is FULL";
+            }
             return View(vehicle);
         }
 
