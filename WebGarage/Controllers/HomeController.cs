@@ -10,10 +10,12 @@ namespace WebGarage.Controllers
     public class HomeController : Controller
     {
         private GarageContext db = new GarageContext();
+        private CustomerController customercontroller = new CustomerController();
+        
         public ActionResult Index()
         {
             db.Vehicles.ToList();
-            ViewBag.FreeParkingSlots = db.Vehicles.ToList().Count().ToString();
+            ViewBag.FreeParkingSlots = customercontroller.FreeParkingSpaces().ToString();
             return View();
         }
 

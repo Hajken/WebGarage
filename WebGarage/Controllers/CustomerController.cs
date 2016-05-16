@@ -25,7 +25,7 @@ namespace WebGarage.Controllers
         // GET: Park Vehicle
         public ActionResult ParkVehicle()
         {
-            if (db.Vehicles.ToList().Count() <= totalParkingSpaces)
+            if (FreeParkingSpaces() <= totalParkingSpaces)
             {
                 ViewBag.GarageFull = null;
                 return View();
@@ -43,9 +43,8 @@ namespace WebGarage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ParkVehicle([Bind(Include = "ID,RegistrationNumber,NumberOfWheels,Model,Color,VehicleType,DateCreated")] Vehicle vehicle)
         {
-            if (db.Vehicles.ToList().Count() <= totalParkingSpaces)
+            if (FreeParkingSpaces() <= totalParkingSpaces)
             {
-
 
                 if (ModelState.IsValid)
                 {
@@ -165,6 +164,64 @@ namespace WebGarage.Controllers
 
         }
 
-       
+        public int FreeParkingSpaces()
+        {
+            int bike = 0;
+            int freeParkingSlot = 0;
+
+            var vehicles = db.Vehicles.ToList();
+
+
+            foreach (var v in vehicles)
+            {
+                switch (v.VehicleType)
+                {
+                    case VehicleTypes.Car:
+                        freeParkingSlot++;
+                        break;
+                    case VehicleTypes.Truck:
+                        freeParkingSlot += 2;
+                        break;
+                    case VehicleTypes.Boat:
+                        freeParkingSlot++;
+                        break;
+                    case VehicleTypes.AirPlane:
+                        freeParkingSlot += 2;
+                        break;
+                    case VehicleTypes.Bicycle:
+                        if (bike == 0)
+                        {
+                            freeParkingSlot++;
+                            bike++;
+                            break;
+                        }
+                        bike++;
+                        if (bike == 3)
+                        {
+                            bike = 0;
+                        }
+                        break;
+                    case VehicleTypes.Motorcycle:
+                        if (bike == 0)
+                        {
+                            freeParkingSlot++;
+                            bike++;
+                            break;
+                        }
+                        bike++;
+                        if (bike == 3)
+                        {
+                            bike = 0;
+                        }
+                        break;
+                    case VehicleTypes.Other:
+                        freeParkingSlot++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return freeParkingSlot= totalParkingSpaces-freeParkingSlot;
+        }
     }
 }

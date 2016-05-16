@@ -10,7 +10,7 @@ using WebGarage.DAL;
 using WebGarage.Models;
 using WebGarage.Classes;
 using PagedList;
-    
+
 namespace WebGarage.Controllers
 {
     public class VehiclesController : Controller
@@ -217,7 +217,7 @@ namespace WebGarage.Controllers
                 }
 
                 DateTime StartTime = v.DateCreated;
-                
+
                 TimeSpan ts = EndTime - StartTime;
 
 
@@ -230,7 +230,8 @@ namespace WebGarage.Controllers
             return View(stats);
         }
 
-        
+
+
 
         protected override void Dispose(bool disposing)
         {
