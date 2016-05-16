@@ -6,10 +6,12 @@
     @Html.Action("SearchForm", "Vehicles")
 </div>
 
-
 <div id="search-results">
     @Html.Action("SearchInitial", "Vehicles")
 </div>
+<p>
+    @Html.ActionLink("Back to Admin", "Admin", "Home")
+</p>
 
 <script>
     var loadResults = function (url) {
