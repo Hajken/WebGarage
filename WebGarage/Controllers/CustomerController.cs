@@ -27,9 +27,12 @@ namespace WebGarage.Controllers
         {
             if (db.Vehicles.ToList().Count() <= totalParkingSpaces)
             {
-                ViewBag.GarageFull = "The Garage Is FULL";
+                ViewBag.GarageFull = null;
+                return View();
             }
-                
+
+
+            ViewBag.GarageFull = "The Garage Is FULL";
             return View();
         }
 
@@ -40,17 +43,17 @@ namespace WebGarage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ParkVehicle([Bind(Include = "ID,RegistrationNumber,NumberOfWheels,Model,Color,VehicleType,DateCreated")] Vehicle vehicle)
         {
-            if (db.Vehicles.ToList().Count()<= totalParkingSpaces)
+            if (db.Vehicles.ToList().Count() <= totalParkingSpaces)
             {
 
-            
-            if (ModelState.IsValid)
-            {
-                db.Vehicles.Add(vehicle);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                if (ModelState.IsValid)
+                {
+                    db.Vehicles.Add(vehicle);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-}
             else
             {
                 ViewBag.GarageFull = "The Garage Is FULL";
@@ -90,7 +93,7 @@ namespace WebGarage.Controllers
                     return PartialView("_CheckoutResult", null);
                 }
                 Vehicle vehicle = db.Vehicles.Find(id);
-                
+
                 if (vehicle == null)
                 {
                     ViewBag.Fail = "Did not find your vehicle";
