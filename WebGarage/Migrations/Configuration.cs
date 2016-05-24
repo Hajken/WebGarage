@@ -115,11 +115,11 @@ namespace WebGarage.Migrations
 
             var parkingSpaces = new List<ParkingSpace>();
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 10; i++)
             {
                 ParkingSpace ps = null;
 
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < 19; j++)
                 {
                     ps = new ParkingSpace
                     {

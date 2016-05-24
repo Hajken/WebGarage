@@ -29,11 +29,6 @@
                                            
                     @foreach (var parkingSpace in Model)
                     {
-                        if (parkingSpace.Edge)
-                        {
-                            @Html.Raw("</tr><tr>")
-                        }
-
                         if (parkingSpace.Vehicle == null)
                         {
                             <td class="success">
@@ -48,6 +43,11 @@
                         }
 
                         lot++;
+
+                        if (parkingSpace.Edge)
+                        {
+                            @Html.Raw("</tr><tr>")
+                        }
                     }
 
                     </tr>
