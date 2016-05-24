@@ -33,6 +33,14 @@ namespace WebGarage.Controllers
             {
                 return HttpNotFound();
             }
+
+            var query = from v in db.Vehicles
+                        where v.MemberID == member.ID
+                        orderby v.RegistrationNumber
+                        select v;
+
+            ViewBag.Vehicles = query.ToList();
+
             return View(member);
         }
 

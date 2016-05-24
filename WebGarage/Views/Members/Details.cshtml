@@ -34,6 +34,16 @@
             @Html.DisplayFor(model => model.PersonNumber)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Vehicles)
+        </dt>
+
+        <dd>
+            @foreach (var vehicle in Model.Vehicles)
+            {
+                @vehicle.RegistrationNumber <br />
+            }
+        </dd>
     </dl>
 </div>
 <p>
