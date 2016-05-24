@@ -92,7 +92,7 @@ namespace WebGarage.Migrations
                     var registrationNumber = RandomString(rnd, 6);
                     var numberOfWheels = rnd.Next(1, 5);
                     var model = models[rnd.Next(0, models.Length)];
-                    var color = (Vehicle.Colors)rnd.Next(0, 7);
+                    var color = (Vehicle.Colors)rnd.Next(0, 6);
                     var vehicleType = RandomVehicleType(rnd, vehicleTypes);
 
                     var vehicle = new Vehicle
@@ -118,9 +118,8 @@ namespace WebGarage.Migrations
             for (int i = 0; i < 20; i++)
             {
                 ParkingSpace ps = null;
-                var n = 0;
 
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < 10; j++)
                 {
                     ps = new ParkingSpace
                     {
@@ -130,20 +129,15 @@ namespace WebGarage.Migrations
                     parkingSpaces.Add(ps);
                 }
 
-
-                
-                
-                
-                
-
                 ps = new ParkingSpace
                 {
                     Edge = true,
                 };
+
                 parkingSpaces.Add(ps);
             }
-            context.ParkingSpaces.AddRange(parkingSpaces.ToArray());
 
+            context.ParkingSpaces.AddRange(parkingSpaces.ToArray());
         }
 
         private static string RandomString(Random random, int length)
