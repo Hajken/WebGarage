@@ -1,9 +1,9 @@
-﻿@{
+﻿@model IEnumerable<WebGarage.Models.ParkingSpace>
+
+@{
     ViewBag.Title = "Home Page";
 
-    var lotNumber = 1;
-    var numTakenLotsLeft = ViewBag.TotalParkingSpaces - ViewBag.FreeParkingSlots;
-    var numLotsLeft = ViewBag.TotalParkingSpaces;
+    var lot = 1;
 }
 
 <div class="row">
@@ -25,32 +25,34 @@
         <p>
             <table class="table">
                 <tbody>
-                    @for (var i = 0; i < 20; i++)
+                    <tr>
+                                           
+                    @foreach (var parkingSpace in Model)
                     {
-                        <tr>
-
-                        @for (var j = 1; j < 20 && numLotsLeft > 0; j++, numTakenLotsLeft--, numLotsLeft--)
+                        if (parkingSpace.Edge)
                         {
-                            if (numTakenLotsLeft > 0)
-                            {
-                                <td class="danger">
-                                Lot<br/> #@lotNumber
-                                </td>
-                            }
-                            else
-                            {
-                                <td class="success">
-                                Lot<br /> #@lotNumber
-                                </td>
-                            }
-
-                            lotNumber++;
+                            @Html.Raw("</tr><tr>")
                         }
 
-                        </tr>
+                        if (parkingSpace.Vehicle == null)
+                        {
+                            <td class="success">
+                                Lot<br /> #@lot
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="danger">
+                                @parkingSpace.Vehicle.RegistrationNumber
+                            </td>
+                        }
+
+                        lot++;
                     }
-                    </tbody>
-                    </table>
-                    </p>
-                </div>
-            </div>
+
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+    </div>
+</div>
