@@ -153,6 +153,10 @@
     <Compile Include="Migrations\201605240758530_Created_Member_and_VehicleType.Designer.cs">
       <DependentUpon>201605240758530_Created_Member_and_VehicleType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605240814208_Added_relationships.cs" />
+    <Compile Include="Migrations\201605240814208_Added_relationships.Designer.cs">
+      <DependentUpon>201605240814208_Added_relationships.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Classes\Stats.cs" />
     <Compile Include="Models\Member.cs" />
@@ -229,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605240758530_Created_Member_and_VehicleType.resx">
       <DependentUpon>201605240758530_Created_Member_and_VehicleType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605240814208_Added_relationships.resx">
+      <DependentUpon>201605240814208_Added_relationships.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

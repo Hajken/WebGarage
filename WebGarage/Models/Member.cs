@@ -18,5 +18,8 @@ namespace WebGarage.Models
 
         [Required]
         public string PersonNumber { get; set; }
+
+        [Required]
+        public ICollection<Vehicle> Vehicles { get; set; }
     }
 }

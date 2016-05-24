@@ -23,31 +23,20 @@ namespace WebGarage.Models
 
         [Required]
         public Colors Color { get; set; }
-
-        [Required]
-        public VehicleTypes VehicleType { get; set; }
-
-
+        
         public DateTime DateCreated
         {
             get { return _date; }
             set { _date = value; }
         }
 
-        // public virtual DbSet<MyEntity> MyEntities { get; set; }
+        [Required]
+        public virtual Member Member { get; set; }
 
+        [Required]
+        public virtual VehicleType VehicleType { get; set; }
     }
 
-    public enum VehicleTypes
-    {
-        Car,
-        Truck,
-        Boat,
-        AirPlane,
-        Bicycle,
-        Motorcycle,
-        Other
-    }
     public enum Colors
     {
         Yellow,

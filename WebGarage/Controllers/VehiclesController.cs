@@ -152,46 +152,24 @@ namespace WebGarage.Controllers
 
             var vehicles = db.Vehicles.ToList();
 
-            foreach (var v in vehicles)
-            {
-                switch (v.VehicleType)
-                {
-                    case VehicleTypes.Car:
-                        stats.Car++;
-                        break;
-                    case VehicleTypes.Truck:
-                        stats.Truck++;
-                        break;
-                    case VehicleTypes.Boat:
-                        stats.Boat++;
-                        break;
-                    case VehicleTypes.AirPlane:
-                        stats.AirPlane++;
-                        break;
-                    case VehicleTypes.Bicycle:
-                        stats.Bicycle++;
-                        break;
-                    case VehicleTypes.Motorcycle:
-                        stats.Motorcycle++;
-                        break;
-                    case VehicleTypes.Other:
-                        stats.Other++;
-                        break;
-                    default:
-                        break;
-                }
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-                DateTime StartTime = v.DateCreated;
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-                TimeSpan ts = EndTime - StartTime;
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-                stats.TotalTimeInMinutes += (int)ts.TotalMinutes;
-                stats.TotalNumberOfWheels += v.NumberOfWheels;
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-                stats.Total++;
-            }
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
             stats.TotalPrice = stats.TotalTimeInMinutes * pricePerMinut;
+
             return View(stats);
         }
 

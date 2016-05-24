@@ -176,57 +176,23 @@ namespace WebGarage.Controllers
 
             var vehicles = db.Vehicles.ToList();
 
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-            foreach (var v in vehicles)
-            {
-                switch (v.VehicleType)
-                {
-                    case VehicleTypes.Car:
-                        freeParkingSlot++;
-                        break;
-                    case VehicleTypes.Truck:
-                        freeParkingSlot += 2;
-                        break;
-                    case VehicleTypes.Boat:
-                        freeParkingSlot++;
-                        break;
-                    case VehicleTypes.AirPlane:
-                        freeParkingSlot += 2;
-                        break;
-                    case VehicleTypes.Bicycle:
-                        if (bike == 0)
-                        {
-                            freeParkingSlot++;
-                            bike++;
-                            break;
-                        }
-                        bike++;
-                        if (bike == 3)
-                        {
-                            bike = 0;
-                        }
-                        break;
-                    case VehicleTypes.Motorcycle:
-                        if (bike == 0)
-                        {
-                            freeParkingSlot++;
-                            bike++;
-                            break;
-                        }
-                        bike++;
-                        if (bike == 3)
-                        {
-                            bike = 0;
-                        }
-                        break;
-                    case VehicleTypes.Other:
-                        freeParkingSlot++;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            return freeParkingSlot= totalParkingSpaces-freeParkingSlot;
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+            return freeParkingSlot = totalParkingSpaces-freeParkingSlot;
         }
     }
 }
