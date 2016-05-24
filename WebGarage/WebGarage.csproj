@@ -161,9 +161,14 @@
     <Compile Include="Migrations\201605240913266_Made_relationships_nullable_and_added_size.Designer.cs">
       <DependentUpon>201605240913266_Made_relationships_nullable_and_added_size.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605240957142_Added_ParkingSpace.cs" />
+    <Compile Include="Migrations\201605240957142_Added_ParkingSpace.Designer.cs">
+      <DependentUpon>201605240957142_Added_ParkingSpace.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Classes\Stats.cs" />
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\ParkingSpace.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -243,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605240913266_Made_relationships_nullable_and_added_size.resx">
       <DependentUpon>201605240913266_Made_relationships_nullable_and_added_size.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605240957142_Added_ParkingSpace.resx">
+      <DependentUpon>201605240957142_Added_ParkingSpace.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -6,16 +6,13 @@ using System.Web;
 
 namespace WebGarage.Models
 {
-    public class VehicleType
+    public class ParkingSpace 
     {
         public int ID { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public bool Edge { get; set; }
 
-        [Required]
-        public int Size { get; set; }
-
-        public string Description { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
     }
 }

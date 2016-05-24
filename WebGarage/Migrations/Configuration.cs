@@ -110,6 +110,41 @@ namespace WebGarage.Migrations
             }
 
             context.Vehicles.AddOrUpdate(x => x.RegistrationNumber, vehicles.ToArray());
+
+            context.Database.ExecuteSqlCommand("TRUNCATE TABLE ParkingSpaces");
+
+            var parkingSpaces = new List<ParkingSpace>();
+            var num = 1;
+
+            for (int i = 0; i < 200; i++)
+            {
+                var edge = false;
+
+                if (num == 10)
+                {
+                    edge = true;
+                    num = 0;
+                }
+
+                var n = rnd.Next(0, 2);
+                Vehicle vehicle = null;
+
+                if (n == 1)
+                {
+                    vehicle = RandomVehicle(rnd, vehicles);
+                }
+
+                var ps = new ParkingSpace
+                {
+                    Vehicle = vehicle,
+                    Edge = edge,
+                };
+
+                parkingSpaces.Add(ps);
+                num++;
+
+                context.ParkingSpaces.Add(ps);
+            }
         }
 
         private static string RandomString(Random random, int length)
@@ -131,6 +166,12 @@ namespace WebGarage.Migrations
             var skip = (int)(rand.NextDouble() * vehicletypes.Count());
 
             return vehicletypes.OrderBy(o => o.ID).Skip(skip).Take(1).First();
+        }
+        private Vehicle RandomVehicle(Random rand, List<Vehicle> vehicles)
+        {
+            var skip = (int)(rand.NextDouble() * vehicles.Count());
+
+            return vehicles.OrderBy(o => o.ID).Skip(skip).Take(1).First();
         }
     }
 }
