@@ -40,8 +40,12 @@ namespace WebGarage.Models
             set { _date = value; }
         }
 
+        public int MemberID { get; set; }
+
         [Required]
         public virtual Member Member { get; set; }
+
+        public int VehicleTypeID { get; set; }
 
         public virtual VehicleType VehicleType { get; set; }
 
