@@ -114,37 +114,36 @@ namespace WebGarage.Migrations
             context.Database.ExecuteSqlCommand("TRUNCATE TABLE ParkingSpaces");
 
             var parkingSpaces = new List<ParkingSpace>();
-            var num = 1;
 
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 20; i++)
             {
-                var edge = false;
+                ParkingSpace ps = null;
+                var n = 0;
 
-                if (num == 10)
+                for (int j = 0; j < 9; j++)
                 {
-                    edge = true;
-                    num = 0;
+                    ps = new ParkingSpace
+                    {
+                        Edge = false,
+                    };
+
+                    parkingSpaces.Add(ps);
                 }
 
-                var n = rnd.Next(0, 2);
-                Vehicle vehicle = null;
 
-                if (n == 1)
-                {
-                    vehicle = RandomVehicle(rnd, vehicles);
-                }
+                
+                
+                
+                
 
-                var ps = new ParkingSpace
+                ps = new ParkingSpace
                 {
-                    Vehicle = vehicle,
-                    Edge = edge,
+                    Edge = true,
                 };
-
                 parkingSpaces.Add(ps);
-                num++;
-
-                context.ParkingSpaces.Add(ps);
             }
+            context.ParkingSpaces.AddRange(parkingSpaces.ToArray());
+
         }
 
         private static string RandomString(Random random, int length)
