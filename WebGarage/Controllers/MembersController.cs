@@ -132,5 +132,24 @@ namespace WebGarage.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult SearchMember(string searchTerm = null)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                var members = db.Members
+                        .Where(t =>
+                            t.FirstName.Contains(searchTerm) || t.PersonNumber.Contains(searchTerm) ||
+                            t.LastName.ToString().Contains(searchTerm));
+
+                if (members == null)
+                {
+                    ViewBag.Message = "Did not find your any member!";
+                }
+                return PartialView("_SearchMemberPartial", members);
+
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
