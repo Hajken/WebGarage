@@ -17,6 +17,9 @@ namespace WebGarage.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public int Size { get; set; }
+
         public string Description { get; set; }
     }
 }

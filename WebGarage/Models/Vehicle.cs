@@ -8,6 +8,16 @@ namespace WebGarage.Models
 {
     public class Vehicle
     {
+        public enum Colors
+        {
+            Yellow,
+            Black,
+            White,
+            Red,
+            Green,
+            Other,
+        }
+
         private DateTime _date = DateTime.Now;
 
         public int ID { get; set; }
@@ -33,18 +43,11 @@ namespace WebGarage.Models
         [Required]
         public virtual Member Member { get; set; }
 
-        [Required]
         public virtual VehicleType VehicleType { get; set; }
-    }
 
-    public enum Colors
-    {
-        Yellow,
-        Black,
-        White,
-        Red,
-        Green,
-        Other
-    }
-    
+        public Vehicle()
+        {
+            VehicleType = new VehicleType {Name = "Other", Size = 1 };
+        }
+    }   
 }
