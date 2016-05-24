@@ -34,7 +34,7 @@ namespace WebGarage.Models
             set { _date = value; }
         }
 
-
+        // public virtual DbSet<MyEntity> MyEntities { get; set; }
 
     }
 

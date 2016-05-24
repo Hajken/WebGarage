@@ -68,6 +68,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -147,9 +149,15 @@
     <Compile Include="Migrations\201605120922323_init.Designer.cs">
       <DependentUpon>201605120922323_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605240758530_Created_Member_and_VehicleType.cs" />
+    <Compile Include="Migrations\201605240758530_Created_Member_and_VehicleType.Designer.cs">
+      <DependentUpon>201605240758530_Created_Member_and_VehicleType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Classes\Stats.cs" />
+    <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Vehicle.cs" />
+    <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +226,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605120922323_init.resx">
       <DependentUpon>201605120922323_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605240758530_Created_Member_and_VehicleType.resx">
+      <DependentUpon>201605240758530_Created_Member_and_VehicleType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

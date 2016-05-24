@@ -15,6 +15,7 @@ namespace WebGarage.DAL
         }
 
         public DbSet<Vehicle> Vehicles { get; set; }
-
+        public DbSet<Member> Members { get; set; }
+        public DbSet<VehicleType> VehicleTypes { get; set; }
     }
 }
