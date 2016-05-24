@@ -8,6 +8,16 @@ namespace WebGarage.Models
 {
     public class Vehicle
     {
+        public enum Colors
+        {
+            Yellow,
+            Black,
+            White,
+            Red,
+            Green,
+            Other,
+        }
+
         private DateTime _date = DateTime.Now;
 
         public int ID { get; set; }
@@ -23,39 +33,25 @@ namespace WebGarage.Models
 
         [Required]
         public Colors Color { get; set; }
-
-        [Required]
-        public VehicleTypes VehicleType { get; set; }
-
-
+        
         public DateTime DateCreated
         {
             get { return _date; }
             set { _date = value; }
         }
 
+        public int MemberID { get; set; }
 
+        [Required]
+        public virtual Member Member { get; set; }
 
-    }
+        public int VehicleTypeID { get; set; }
 
-    public enum VehicleTypes
-    {
-        Car,
-        Truck,
-        Boat,
-        AirPlane,
-        Bicycle,
-        Motorcycle,
-        Other
-    }
-    public enum Colors
-    {
-        Yellow,
-        Black,
-        White,
-        Red,
-        Green,
-        Other
-    }
-    
+        public virtual VehicleType VehicleType { get; set; }
+
+        public Vehicle()
+        {
+            VehicleType = new VehicleType {Name = "Other", Size = 1 };
+        }
+    }   
 }

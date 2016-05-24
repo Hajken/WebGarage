@@ -68,6 +68,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -138,6 +140,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MembersController.cs" />
+    <Compile Include="Controllers\Vehicles2Controller.cs" />
     <Compile Include="Controllers\VehiclesController.cs" />
     <Compile Include="DAL\GarageContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -147,9 +151,28 @@
     <Compile Include="Migrations\201605120922323_init.Designer.cs">
       <DependentUpon>201605120922323_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605240758530_Created_Member_and_VehicleType.cs" />
+    <Compile Include="Migrations\201605240758530_Created_Member_and_VehicleType.Designer.cs">
+      <DependentUpon>201605240758530_Created_Member_and_VehicleType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605240814208_Added_relationships.cs" />
+    <Compile Include="Migrations\201605240814208_Added_relationships.Designer.cs">
+      <DependentUpon>201605240814208_Added_relationships.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605240913266_Made_relationships_nullable_and_added_size.cs" />
+    <Compile Include="Migrations\201605240913266_Made_relationships_nullable_and_added_size.Designer.cs">
+      <DependentUpon>201605240913266_Made_relationships_nullable_and_added_size.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605240957142_Added_ParkingSpace.cs" />
+    <Compile Include="Migrations\201605240957142_Added_ParkingSpace.Designer.cs">
+      <DependentUpon>201605240957142_Added_ParkingSpace.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Classes\Stats.cs" />
+    <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\ParkingSpace.cs" />
     <Compile Include="Models\Vehicle.cs" />
+    <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +226,17 @@
     <Content Include="Views\Customer\_Receipt.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Vehicles\Stats.cshtml" />
+    <Content Include="Views\Vehicles2\Create.cshtml" />
+    <Content Include="Views\Vehicles2\Delete.cshtml" />
+    <Content Include="Views\Vehicles2\Details.cshtml" />
+    <Content Include="Views\Vehicles2\Edit.cshtml" />
+    <Content Include="Views\Vehicles2\Index.cshtml" />
+    <Content Include="Views\Members\Create.cshtml" />
+    <Content Include="Views\Members\Delete.cshtml" />
+    <Content Include="Views\Members\Details.cshtml" />
+    <Content Include="Views\Members\Edit.cshtml" />
+    <Content Include="Views\Members\Index.cshtml" />
+    <Content Include="Views\Members\_SearchMemberPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -218,6 +252,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605120922323_init.resx">
       <DependentUpon>201605120922323_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605240758530_Created_Member_and_VehicleType.resx">
+      <DependentUpon>201605240758530_Created_Member_and_VehicleType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605240814208_Added_relationships.resx">
+      <DependentUpon>201605240814208_Added_relationships.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605240913266_Made_relationships_nullable_and_added_size.resx">
+      <DependentUpon>201605240913266_Made_relationships_nullable_and_added_size.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605240957142_Added_ParkingSpace.resx">
+      <DependentUpon>201605240957142_Added_ParkingSpace.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

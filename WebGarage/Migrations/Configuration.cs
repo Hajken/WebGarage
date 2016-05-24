@@ -16,20 +16,62 @@ namespace WebGarage.Migrations
 
         protected override void Seed(DAL.GarageContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var rnd = new Random(new System.DateTime().Millisecond);
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var members = new List<Member>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                var m = new Member
+                {
+                    FirstName = RandomString(rnd, 5),
+                    LastName = RandomString(rnd, 10),
+                    PersonNumber = RandomStringOnlyNumbers(rnd, 12),
+                };
+
+                members.Add(m);
+            }
+
+            context.Members.AddOrUpdate(x => x.PersonNumber, members.ToArray());
+
+            var vts = new string[]
+            {
+                "Car",
+                "Truck",
+                "Boat",
+                "AirPlane",
+                "Bicycle",
+                "Motorcycle",
+                "Other",
+            };
+
+            var sizes = new Dictionary<string, int>()
+            {
+                { "Car", 1 },
+                { "Truck", 4 },
+                { "Boat", 2 },
+                { "AirPlane", 3 },
+                { "Bicycle", 1 },
+                { "Motorcycle", 1 },
+                { "Other", 1 },
+            };
+
+            var vehicleTypes = new List<VehicleType>();
+
+            foreach (var item in vts)
+            {
+                var vt = new VehicleType
+                {
+                    Name = item,
+                    Size = sizes[item],
+                };
+
+                vehicleTypes.Add(vt);
+            }
+
+            context.VehicleTypes.AddOrUpdate(x => x.Name, vehicleTypes.ToArray());
+
             var vehicles = new List<Vehicle>();
-
 
             var models = new string[]
             {
@@ -41,35 +83,61 @@ namespace WebGarage.Migrations
                 "Opel",
             };
 
-
-            var rnd = new Random(new System.DateTime().Millisecond);
-
-            for (int i = 0; i < 10; i++)
+            foreach (var member in members)
             {
-                for (int j = 0; j < 10; j++)
+                var numberVehicles = rnd.Next(0, 3);
+
+                for (int j = 0; j < numberVehicles; j++)
                 {
-                    var regNumberRandom = RandomString(rnd, 6);
-                    var numberOfWheels = rnd.Next(1,5);
-
-                    var modelRandom = models[rnd.Next(0, models.Length)];
-
-                    var colorRandom = (Colors)rnd.Next(0,5);
-                    var vehicleTypesRandom = (VehicleTypes)rnd.Next(0, 5);
+                    var registrationNumber = RandomString(rnd, 6);
+                    var numberOfWheels = rnd.Next(1, 5);
+                    var model = models[rnd.Next(0, models.Length)];
+                    var color = (Vehicle.Colors)rnd.Next(0, 6);
+                    var vehicleType = RandomVehicleType(rnd, vehicleTypes);
 
                     var vehicle = new Vehicle
                     {
-                        RegistrationNumber = regNumberRandom,
+                        Member = member,
+                        RegistrationNumber = registrationNumber,
                         NumberOfWheels = numberOfWheels,
-                        Model = modelRandom,
-                        Color = colorRandom,
-                        VehicleType = vehicleTypesRandom
+                        Model = model,
+                        Color = color,
+                        VehicleType = vehicleType,
                     };
 
                     vehicles.Add(vehicle);
                 }
             }
 
-            context.Vehicles.AddOrUpdate(p => p.RegistrationNumber, vehicles.ToArray());
+            context.Vehicles.AddOrUpdate(x => x.RegistrationNumber, vehicles.ToArray());
+
+            context.Database.ExecuteSqlCommand("TRUNCATE TABLE ParkingSpaces");
+
+            var parkingSpaces = new List<ParkingSpace>();
+
+            for (int i = 0; i < 20; i++)
+            {
+                ParkingSpace ps = null;
+
+                for (int j = 0; j < 10; j++)
+                {
+                    ps = new ParkingSpace
+                    {
+                        Edge = false,
+                    };
+
+                    parkingSpaces.Add(ps);
+                }
+
+                ps = new ParkingSpace
+                {
+                    Edge = true,
+                };
+
+                parkingSpaces.Add(ps);
+            }
+
+            context.ParkingSpaces.AddRange(parkingSpaces.ToArray());
         }
 
         private static string RandomString(Random random, int length)
@@ -77,6 +145,26 @@ namespace WebGarage.Migrations
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private static string RandomStringOnlyNumbers(Random random, int length)
+        {
+            const string chars = "0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private VehicleType RandomVehicleType(Random rand, List<VehicleType> vehicletypes)
+        {
+            var skip = (int)(rand.NextDouble() * vehicletypes.Count());
+
+            return vehicletypes.OrderBy(o => o.ID).Skip(skip).Take(1).First();
+        }
+        private Vehicle RandomVehicle(Random rand, List<Vehicle> vehicles)
+        {
+            var skip = (int)(rand.NextDouble() * vehicles.Count());
+
+            return vehicles.OrderBy(o => o.ID).Skip(skip).Take(1).First();
         }
     }
 }
