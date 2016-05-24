@@ -37,6 +37,20 @@ namespace WebGarage.Controllers
             return View(vehicle);
         }
 
+        public ActionResult MiniDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Vehicle vehicle = db.Vehicles.Find(id);
+            if (vehicle == null)
+            {
+                return HttpNotFound();
+            }
+            return View(vehicle);
+        }
+
         // GET: Vehicles2/Create
         public ActionResult Create()
         {
