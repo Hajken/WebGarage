@@ -4,6 +4,7 @@ namespace WebGarage.Migrations
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Data.Entity.Core.Objects;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
@@ -20,7 +21,7 @@ namespace WebGarage.Migrations
 
             var members = new List<Member>();
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 20; i++)
             {
                 var m = new Member
                 {
@@ -83,6 +84,8 @@ namespace WebGarage.Migrations
                 "Opel",
             };
 
+            var lotNumber = 0;
+
             foreach (var member in members)
             {
                 var numberVehicles = rnd.Next(0, 3);
@@ -95,6 +98,19 @@ namespace WebGarage.Migrations
                     var color = (Vehicle.Colors)rnd.Next(0, 6);
                     var vehicleType = RandomVehicleType(rnd, vehicleTypes);
 
+                    var parkingSpaces = new List<ParkingSpace>();
+
+                    for (int i = 0; i < vehicleType.Size; i++)
+                    {
+                        var ps = new ParkingSpace
+                        {
+                        };
+
+                        parkingSpaces.Add(ps);
+                    }
+
+                    context.ParkingSpaces.AddOrUpdate(parkingSpaces.ToArray());
+
                     var vehicle = new Vehicle
                     {
                         Member = member,
@@ -103,7 +119,10 @@ namespace WebGarage.Migrations
                         Model = model,
                         Color = color,
                         VehicleType = vehicleType,
+                        ParkingSpaces = parkingSpaces.ToArray(),
                     };
+
+                    lotNumber += vehicleType.Size;
 
                     vehicles.Add(vehicle);
                 }
@@ -111,33 +130,14 @@ namespace WebGarage.Migrations
 
             context.Vehicles.AddOrUpdate(x => x.RegistrationNumber, vehicles.ToArray());
 
-            context.Database.ExecuteSqlCommand("TRUNCATE TABLE ParkingSpaces");
-
-            var parkingSpaces = new List<ParkingSpace>();
-
-            for (int i = 0; i < 10; i++)
+            foreach (var v in context.Vehicles)
             {
-                ParkingSpace ps = null;
-
-                for (int j = 0; j < 19; j++)
+                foreach (var p in context.ParkingSpaces)
                 {
-                    ps = new ParkingSpace
-                    {
-                        Edge = false,
-                    };
-
-                    parkingSpaces.Add(ps);
+                    p.Vehicle = v;
+                    context.ParkingSpaces.AddOrUpdate(p);
                 }
-
-                ps = new ParkingSpace
-                {
-                    Edge = true,
-                };
-
-                parkingSpaces.Add(ps);
             }
-
-            context.ParkingSpaces.AddRange(parkingSpaces.ToArray());
         }
 
         private static string RandomString(Random random, int length)
@@ -160,11 +160,19 @@ namespace WebGarage.Migrations
 
             return vehicletypes.OrderBy(o => o.ID).Skip(skip).Take(1).First();
         }
+
         private Vehicle RandomVehicle(Random rand, List<Vehicle> vehicles)
         {
             var skip = (int)(rand.NextDouble() * vehicles.Count());
 
             return vehicles.OrderBy(o => o.ID).Skip(skip).Take(1).First();
+        }
+
+        private ParkingSpace RandomParkingSpace(Random rand, List<ParkingSpace> parkingSpaces)
+        {
+            var skip = (int)(rand.NextDouble() * parkingSpaces.Count());
+
+            return parkingSpaces.OrderBy(o => o.ID).Skip(skip).Take(1).First();
         }
     }
 }

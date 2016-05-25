@@ -10,8 +10,9 @@ namespace WebGarage.Models
     {
         public int ID { get; set; }
 
-        [Required]
         public bool Edge { get; set; }
+
+        public int VehicleID { get; set; }
 
         public virtual Vehicle Vehicle { get; set; }
     }
