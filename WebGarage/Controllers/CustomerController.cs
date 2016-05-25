@@ -35,7 +35,7 @@ namespace WebGarage.Controllers
                           where p.VehicleID == null
                           select p;
 
-                ViewBag.ParkingSpaces = new SelectList(pss, "ID", "Vehicle");
+                ViewBag.ParkingSpaces = new SelectList(pss, "ID", "Lot");
 
                 return View();
             }
@@ -48,7 +48,7 @@ namespace WebGarage.Controllers
                       where p.VehicleID == null
                       select p;
 
-            ViewBag.ParkingSpaces = new SelectList(psss, "ID", "Vehicle");
+            ViewBag.ParkingSpaces = new SelectList(psss, "ID", "Lot");
 
             return View();
         }
@@ -93,7 +93,7 @@ namespace WebGarage.Controllers
                       where p.VehicleID == null
                       select p;
 
-            ViewBag.ParkingSpaces = new SelectList(psss, "ID", "Vehicle");
+            ViewBag.ParkingSpaces = new SelectList(psss, "ID", "Lot");
 
             return View(vehicle);
         }
