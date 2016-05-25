@@ -10,6 +10,8 @@ namespace WebGarage.Models
     {
         public int ID { get; set; }
 
+        public int Lot { get; set; }
+
         public bool Edge { get; set; }
 
         public int? VehicleID { get; set; }

@@ -167,6 +167,10 @@
     <Compile Include="Migrations\201605240957142_Added_ParkingSpace.Designer.cs">
       <DependentUpon>201605240957142_Added_ParkingSpace.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605251101425_Added_Lot_to_ParkingSpace.cs" />
+    <Compile Include="Migrations\201605251101425_Added_Lot_to_ParkingSpace.Designer.cs">
+      <DependentUpon>201605251101425_Added_Lot_to_ParkingSpace.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Classes\Stats.cs" />
     <Compile Include="Models\Member.cs" />
@@ -265,6 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605240957142_Added_ParkingSpace.resx">
       <DependentUpon>201605240957142_Added_ParkingSpace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605251101425_Added_Lot_to_ParkingSpace.resx">
+      <DependentUpon>201605251101425_Added_Lot_to_ParkingSpace.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -106,8 +106,11 @@ namespace WebGarage.Migrations
 
                     for (int i = 0; i < vehicleType.Size; i++)
                     {
+                        lotNumber++;
+
                         var ps = new ParkingSpace
                         {
+                            Lot = lotNumber,
                         };
 
                         parkingSpaces.Add(ps);
@@ -126,8 +129,6 @@ namespace WebGarage.Migrations
                         ParkingSpaces = parkingSpaces.ToArray(),
                     };
 
-                    lotNumber += vehicleType.Size;
-
                     vehicles.Add(vehicle);
                 }
             }
@@ -140,11 +141,14 @@ namespace WebGarage.Migrations
 
             for (int i = 0; i < lotsLeft; i++)
             {
-                var p = new ParkingSpace
+                lotNumber++;
+
+                var ps = new ParkingSpace
                 {
+                    Lot = lotNumber,
                 };
 
-                context.ParkingSpaces.Add(p);
+                context.ParkingSpaces.Add(ps);
             }
 
             context.SaveChanges();
