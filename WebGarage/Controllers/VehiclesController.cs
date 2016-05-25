@@ -152,22 +152,36 @@ namespace WebGarage.Controllers
 
             var vehicles = db.Vehicles.ToList();
 
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            stats.Car = (from v in db.Vehicles
+                              where v.VehicleType.Name == "Car"
+                         select v).Count();
 
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            stats.Truck = (from v in db.Vehicles
+                              where v.VehicleType.Name == "Truck"
+                           select v).Count();
 
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            stats.Boat = (from v in db.Vehicles
+                              where v.VehicleType.Name == "Boat"
+                          select v).Count();
 
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            stats.AirPlane = (from v in db.Vehicles
+                              where v.VehicleType.Name == "AirPlane"
+                              select v).Count();
 
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            stats.Bicycle = (from v in db.Vehicles
+                              where v.VehicleType.Name == "Bicycle"
+                             select v).Count();
 
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            stats.Motorcycle = (from v in db.Vehicles
+                              where v.VehicleType.Name == "Motorcycle"
+                                select v).Count();
 
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            stats.Other = (from v in db.Vehicles
+                              where v.VehicleType.Name == "Other"
+                           select v).Count();
 
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+            stats.Total = vehicles.Count();
+            
             stats.TotalPrice = stats.TotalTimeInMinutes * pricePerMinut;
 
             return View(stats);
