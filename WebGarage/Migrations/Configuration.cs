@@ -130,14 +130,36 @@ namespace WebGarage.Migrations
 
             context.Vehicles.AddOrUpdate(x => x.RegistrationNumber, vehicles.ToArray());
 
-            foreach (var v in context.Vehicles)
+            var lotsLeft = 200 - lotNumber;
+
+            for (int i = 0; i < lotsLeft; i++)
             {
-                foreach (var p in context.ParkingSpaces)
+                var p = new ParkingSpace
                 {
-                    p.Vehicle = v;
-                    context.ParkingSpaces.AddOrUpdate(p);
+                };
+
+                context.ParkingSpaces.Add(p);
+            }
+
+            context.SaveChanges();
+
+            var pss = from p in context.ParkingSpaces
+                      select p;
+            var n = 0;
+
+            foreach (var p in pss)
+            {
+                n++;
+
+                if (n % 20 == 0)
+                {
+                    p.Edge = true;
+
+                    n = 0;
                 }
             }
+
+            context.SaveChanges();
         }
 
         private static string RandomString(Random random, int length)

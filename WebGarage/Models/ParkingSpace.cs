@@ -12,7 +12,7 @@ namespace WebGarage.Models
 
         public bool Edge { get; set; }
 
-        public int VehicleID { get; set; }
+        public int? VehicleID { get; set; }
 
         public virtual Vehicle Vehicle { get; set; }
     }
