@@ -238,6 +238,7 @@
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\Members\_SearchMemberPartial.cshtml" />
     <Content Include="Views\Vehicles2\MiniDetails.cshtml" />
+    <Content Include="Views\Customer\ParkVehicle2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

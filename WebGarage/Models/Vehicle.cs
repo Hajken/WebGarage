@@ -49,9 +49,5 @@ namespace WebGarage.Models
 
         public virtual VehicleType VehicleType { get; set; }
 
-        public Vehicle()
-        {
-            VehicleType = new VehicleType {Name = "Other", Size = 1 };
-        }
     }   
 }

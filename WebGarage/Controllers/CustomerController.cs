@@ -23,10 +23,18 @@ namespace WebGarage.Controllers
         }
 
         // GET: Park Vehicle
-        public ActionResult ParkVehicle()
+        public ActionResult ParkVehicle2()
         {
-            if (FreeParkingSpaces() <= totalParkingSpaces)
+            var totalParkingSpaces = db.ParkingSpaces.Count();
+            var freeParkingSpaces = db.ParkingSpaces
+                        .Where(t => t.Vehicle == null);
+
+            ViewBag.MemberID = new SelectList(db.Members, "ID", "FirstName");
+            ViewBag.VehicleTypeID = new SelectList(db.VehicleTypes, "ID", "Name");
+
+            if (freeParkingSpaces.Count() <= totalParkingSpaces)
             {
+
                 ViewBag.GarageFull = null;
                 return View();
             }
@@ -41,11 +49,20 @@ namespace WebGarage.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ParkVehicle([Bind(Include = "ID,RegistrationNumber,NumberOfWheels,Model,Color,VehicleType,DateCreated")] Vehicle vehicle)
+        public ActionResult ParkVehicle2([Bind(Include = "ID,RegistrationNumber,NumberOfWheels,Model,Color,MemberID,VehicleTypeID,DateCreated")] Vehicle vehicle)
         {
-            if (FreeParkingSpaces() <= totalParkingSpaces)
-            {
+            DateTime _date = DateTime.Now;
+            var totalParkingSpaces = db.ParkingSpaces.Count();
+            var freeParkingSpaces = db.ParkingSpaces
+                        .Where(t => t.Vehicle==null);
 
+            ViewBag.MemberID = new SelectList(db.Members, "ID", "FirstName", vehicle.MemberID);
+            ViewBag.VehicleTypeID = new SelectList(db.VehicleTypes, "ID", "Name", vehicle.VehicleTypeID);
+            
+            vehicle.DateCreated = _date;
+            if (freeParkingSpaces.Count() <= totalParkingSpaces)
+            {
+                
                 if (ModelState.IsValid)
                 {
                     db.Vehicles.Add(vehicle);
