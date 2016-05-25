@@ -31,12 +31,24 @@ namespace WebGarage.Controllers
 
                 ViewBag.VehicleTypes = new SelectList(db.VehicleTypes, "ID", "Name");
 
+                var pss = from p in db.ParkingSpaces
+                          where p.VehicleID == null
+                          select p;
+
+                ViewBag.ParkingSpaces = new SelectList(pss, "ID", "Vehicle");
+
                 return View();
             }
             
             ViewBag.GarageFull = "The Garage Is FULL";
 
             ViewBag.VehicleTypes = new SelectList(db.VehicleTypes, "ID", "Name");
+
+            var psss = from p in db.ParkingSpaces
+                      where p.VehicleID == null
+                      select p;
+
+            ViewBag.ParkingSpaces = new SelectList(psss, "ID", "Vehicle");
 
             return View();
         }
@@ -76,6 +88,12 @@ namespace WebGarage.Controllers
             }
 
             ViewBag.VehicleTypes = new SelectList(db.VehicleTypes, "ID", "Name");
+
+            var psss = from p in db.ParkingSpaces
+                      where p.VehicleID == null
+                      select p;
+
+            ViewBag.ParkingSpaces = new SelectList(psss, "ID", "Vehicle");
 
             return View(vehicle);
         }

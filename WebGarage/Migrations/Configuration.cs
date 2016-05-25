@@ -35,6 +35,8 @@ namespace WebGarage.Migrations
 
             context.Members.AddOrUpdate(x => x.PersonNumber, members.ToArray());
 
+            context.SaveChanges();
+
             var vts = new string[]
             {
                 "Car",
@@ -71,6 +73,8 @@ namespace WebGarage.Migrations
             }
 
             context.VehicleTypes.AddOrUpdate(x => x.Name, vehicleTypes.ToArray());
+
+            context.SaveChanges();
 
             var vehicles = new List<Vehicle>();
 
@@ -129,6 +133,8 @@ namespace WebGarage.Migrations
             }
 
             context.Vehicles.AddOrUpdate(x => x.RegistrationNumber, vehicles.ToArray());
+
+            context.SaveChanges();
 
             var lotsLeft = 200 - lotNumber;
 
