@@ -51,10 +51,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.VehicleType, "Vehicle Type", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.VehicleTypeID, "VehicleTypeID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.VehicleType, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.VehicleType, "", new { @class = "text-danger" })
+                @Html.DropDownList("VehicleTypeID", (SelectList)ViewBag.VehicleTypes, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.VehicleTypeID, "", new { @class = "text-danger" })
             </div>
         </div>
 

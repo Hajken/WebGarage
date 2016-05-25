@@ -25,14 +25,19 @@ namespace WebGarage.Controllers
         // GET: Park Vehicle
         public ActionResult ParkVehicle()
         {
-            if (FreeParkingSpaces() <= totalParkingSpaces)
+            if (FreeParkingSpaces())
             {
                 ViewBag.GarageFull = null;
+
+                ViewBag.VehicleTypes = new SelectList(db.VehicleTypes, "ID", "Name");
+
                 return View();
             }
-
-
+            
             ViewBag.GarageFull = "The Garage Is FULL";
+
+            ViewBag.VehicleTypes = new SelectList(db.VehicleTypes, "ID", "Name");
+
             return View();
         }
 
@@ -43,13 +48,25 @@ namespace WebGarage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ParkVehicle([Bind(Include = "ID,RegistrationNumber,NumberOfWheels,Model,Color,VehicleType,DateCreated")] Vehicle vehicle)
         {
-            if (FreeParkingSpaces() <= totalParkingSpaces)
+            if (FreeParkingSpaces())
             {
-
                 if (ModelState.IsValid)
                 {
                     db.Vehicles.Add(vehicle);
                     db.SaveChanges();
+
+                    var size = vehicle.VehicleType.Size;
+                    var pss = (from p in db.ParkingSpaces
+                              where p.VehicleID == null
+                              select p).Take(size);
+
+                    foreach (var ps in pss)
+                    {
+                        ps.VehicleID = vehicle.ID;
+                    }
+
+                    db.SaveChanges();
+
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -57,6 +74,9 @@ namespace WebGarage.Controllers
             {
                 ViewBag.GarageFull = "The Garage Is FULL";
             }
+
+            ViewBag.VehicleTypes = new SelectList(db.VehicleTypes, "ID", "Name");
+
             return View(vehicle);
         }
 
@@ -164,35 +184,15 @@ namespace WebGarage.Controllers
 
         }
 
-        public int TotalParkingSpaces()
+        public bool FreeParkingSpaces()
         {
-            return totalParkingSpaces;
-        }
+            var pss = from p in db.ParkingSpaces
+                      where p.VehicleID != null
+                      select p;
 
-        public int FreeParkingSpaces()
-        {
-            int bike = 0;
-            int freeParkingSlot = 0;
+            var lotsLeft = 200 - pss.Count();
 
-            var vehicles = db.Vehicles.ToList();
-
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-            // FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-            return freeParkingSlot = totalParkingSpaces-freeParkingSlot;
+            return lotsLeft > 0;
         }
     }
 }
