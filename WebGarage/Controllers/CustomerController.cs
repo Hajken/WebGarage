@@ -154,9 +154,19 @@ namespace WebGarage.Controllers
                     return PartialView("_CheckoutResult", null);
 
                 }
+
                 GetReceipt(vehicle);
 
                 db.Entry(vehicle).State = EntityState.Deleted;
+
+                var pss = from p in db.ParkingSpaces
+                          where p.VehicleID == vehicle.ID
+                          select p;
+
+                foreach (var ps in pss)
+                {
+                    ps.VehicleID = null;
+                }
 
                 bool saveFailed;
                 do
