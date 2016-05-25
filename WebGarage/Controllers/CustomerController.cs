@@ -37,6 +37,11 @@ namespace WebGarage.Controllers
 
                 ViewBag.ParkingSpaces = new SelectList(pss, "ID", "Lot");
 
+                var mss = from m in db.Members
+                          select m;
+
+                ViewBag.Members = new SelectList(mss, "ID", "PersonNumber");
+
                 return View();
             }
             
@@ -50,6 +55,11 @@ namespace WebGarage.Controllers
 
             ViewBag.ParkingSpaces = new SelectList(psss, "ID", "Lot");
 
+            var ms = from m in db.Members
+                     select m;
+
+            ViewBag.Members = new SelectList(ms, "ID", "PersonNumber");
+
             return View();
         }
 
@@ -58,25 +68,27 @@ namespace WebGarage.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ParkVehicle([Bind(Include = "ID,RegistrationNumber,NumberOfWheels,Model,Color,VehicleType,DateCreated")] Vehicle vehicle)
+        public ActionResult ParkVehicle(Vehicle vehicle)
         {
             if (FreeParkingSpaces())
             {
+                vehicle.Member = db.Members.Find(vehicle.MemberID);
+                vehicle.VehicleType = db.VehicleTypes.Find(vehicle.VehicleTypeID);
+
+                var size = vehicle.VehicleType.Size;
+                var pss = (from p in db.ParkingSpaces
+                           where p.VehicleID == null
+                           select p).Take(size);
+
+                vehicle.ParkingSpaces = pss.ToList();
+
+                ModelState["Member"].Errors.Clear();
+
+                var errors = ModelState.Values.SelectMany(v => v.Errors).ToList();
+
                 if (ModelState.IsValid)
                 {
                     db.Vehicles.Add(vehicle);
-                    db.SaveChanges();
-
-                    var size = vehicle.VehicleType.Size;
-                    var pss = (from p in db.ParkingSpaces
-                              where p.VehicleID == null
-                              select p).Take(size);
-
-                    foreach (var ps in pss)
-                    {
-                        ps.VehicleID = vehicle.ID;
-                    }
-
                     db.SaveChanges();
 
                     return RedirectToAction("Index", "Home");
@@ -94,6 +106,11 @@ namespace WebGarage.Controllers
                       select p;
 
             ViewBag.ParkingSpaces = new SelectList(psss, "ID", "Lot");
+
+            var ms = from m in db.Members
+                     select m;
+
+            ViewBag.Members = new SelectList(ms, "ID", "PersonNumber");
 
             return View(vehicle);
         }
